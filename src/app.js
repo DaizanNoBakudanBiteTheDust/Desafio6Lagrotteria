@@ -1,23 +1,30 @@
+//dependencias
 import express from 'express';
 import handlebars from 'express-handlebars';
 import mongoose from 'mongoose';
 import {
+        Server
+} from 'socket.io';
+import cookieParser, { signedCookie } from 'cookie-parser';
+import session from 'express-session';
+
+//dependencias de ruta
+
+import {
         __dirname
 }
 from './utils.js';
-import {
-        Server
-} from 'socket.io';
 import productRouter from './routes/api/products.router.js';
 import cartRouter from './routes/api/cart.router.js';
 import chatRouter from './routes/api/message.router.js';
 import viewsRouter from './routes/web/views.router.js';
 
-//para el socket
+//Managers para el socket
 
 import Products from './dao/dbManagers/products.manager.js';
 import Carts from './dao/dbManagers/cart.manager.js';
 import Messages from './dao/dbManagers/message.manager.js';
+
 
 // import ProductManager from './dao/fileManagers/productManager.js';
 
@@ -41,6 +48,37 @@ app.use(express.json({}));
 app.use(express.urlencoded({
         extended: true
 }));
+
+//session
+
+app.use(session({
+        secret: ''
+}))
+
+//cookie parser
+
+app.use(cookieParser("c0d3rS3cr3tC0d"));
+app.get('/cookies', (req,res) => {
+        res.cookie('coderCookie', 'Esta es una coder Cookie', {maxAge: 10000})
+        .send('cookie configurada correctamente');
+});
+
+app.get('/all-cookies', (req,res) => {
+        res.send(req.cookies);
+});
+
+app.get('/signed-cookie', (req,res) => {
+        res.cookie('coderSignedCookie', 'Cookie firmada', {maxAge: 30000, signed: true})
+        .send('cookie configurada correctamente');
+});
+
+app.get('/delete-cookies', (req,res) => {
+        res.clearCookie('coderCookie').send('cookie Eliminada')
+})
+
+app.get('/all-signed-Cookies', (req,res) => {
+        res.send(req.signedCookies);
+});
 
 // handlebars
 
