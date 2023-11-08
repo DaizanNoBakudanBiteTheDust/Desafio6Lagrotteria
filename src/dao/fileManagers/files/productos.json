@@ -1,0 +1,133 @@
+[
+	{
+		"titulo": "segundo producto",
+		"descripcion": "para cuadros",
+		"precio": 30,
+		"status": "ok",
+		"thumbnail": "https://www.avalco.cl/3650-thickbox_default/escoba5costuras.jpg",
+		"code": "121123",
+		"stock": 12,
+		"category": "general",
+		"id": 24
+	},
+	{
+		"titulo": "segundo producto",
+		"descripcion": "para cuadros",
+		"precio": 30,
+		"status": "ok",
+		"thumbnail": "https://www.avalco.cl/3650-thickbox_default/escoba5costuras.jpg",
+		"code": "121123",
+		"stock": 12,
+		"category": "general",
+		"id": 25
+	},
+	{
+		"titulo": "segundo producto",
+		"descripcion": "para cuadros",
+		"precio": 30,
+		"status": "ok",
+		"thumbnail": "https://www.avalco.cl/3650-thickbox_default/escoba5costuras.jpg",
+		"code": "121123",
+		"stock": 12,
+		"category": "general",
+		"id": 26
+	},
+	{
+		"titulo": "segundo producto",
+		"descripcion": "para cuadros",
+		"precio": 30,
+		"status": "ok",
+		"thumbnail": "https://www.avalco.cl/3650-thickbox_default/escoba5costuras.jpg",
+		"code": "121123",
+		"stock": 12,
+		"category": "general",
+		"id": 27
+	},
+	{
+		"titulo": "segundo producto",
+		"descripcion": "para cuadros",
+		"precio": 30,
+		"status": "ok",
+		"thumbnail": "https://www.avalco.cl/3650-thickbox_default/escoba5costuras.jpg",
+		"code": "121123",
+		"stock": 12,
+		"category": "general",
+		"id": 28
+	},
+	{
+		"titulo": "segundo producto",
+		"descripcion": "para cuadros",
+		"precio": 30,
+		"status": "ok",
+		"thumbnail": "https://www.avalco.cl/3650-thickbox_default/escoba5costuras.jpg",
+		"code": "121123",
+		"stock": 12,
+		"category": "general",
+		"id": 29
+	},
+	{
+		"titulo": "segundo producto",
+		"descripcion": "para cuadros",
+		"precio": 30,
+		"status": "ok",
+		"thumbnail": "https://www.avalco.cl/3650-thickbox_default/escoba5costuras.jpg",
+		"code": "121asasd21aas22sas",
+		"stock": 12,
+		"category": "general",
+		"id": 1
+	},
+	{
+		"titulo": "segundo producto",
+		"descripcion": "para cuadros",
+		"precio": 30,
+		"status": "ok",
+		"thumbnail": "https://www.avalco.cl/3650-thickbox_default/escoba5costuras.jpg",
+		"code": "121asasd21aas2a2sas",
+		"stock": 12,
+		"category": "general",
+		"id": 2
+	},
+	{
+		"titulo": "segundo producto",
+		"descripcion": "para cuadros",
+		"precio": 30,
+		"status": "ok",
+		"thumbnail": "https://www.avalco.cl/3650-thickbox_default/escoba5costuras.jpg",
+		"code": "121aasaasd21aas2a2sas",
+		"stock": 12,
+		"category": "general",
+		"id": 3
+	},
+	{
+		"titulo": "segundo pato",
+		"descripcion": "para cuadros",
+		"precio": 30,
+		"status": "ok",
+		"thumbnail": "https://www.avalco.cl/3650-thickbox_default/escoba5costuras.jpg",
+		"code": "121aasaasd2a1aas2a2sas",
+		"stock": 12,
+		"category": "general",
+		"id": 4
+	},
+	{
+		"titulo": "segundo pato",
+		"descripcion": "para cuadros",
+		"precio": 30,
+		"status": "ok",
+		"thumbnail": "https://www.avalco.cl/3650-thickbox_default/escoba5costuras.jpg",
+		"code": "121aasaaasd2a1aas2a2sas",
+		"stock": 12,
+		"category": "general",
+		"id": 5
+	},
+	{
+		"titulo": "marco",
+		"descripcion": "polo",
+		"precio": 20,
+		"status": "true",
+		"thumbnail": "gaor",
+		"code": "QQ4MH3",
+		"stock": 2,
+		"category": "general"
+	}
+]

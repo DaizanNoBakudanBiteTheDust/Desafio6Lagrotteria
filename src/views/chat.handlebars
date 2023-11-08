@@ -1,0 +1,27 @@
+<h1>Escribe tu mensaje</h1>
+<input id="chatBox" name="chatBox" required>
+
+
+<div style="display:flex; gap: 5rem;">
+  <div>
+
+    <h1 id="ola">Chat</h1>
+    <div id="container">
+      <div>
+        <div id="messageLog">
+    {{#each chat}}
+    
+    <ul> 
+        <li>{{this.user}} dice: {{this.message}}</li>
+    </ul>
+   
+    {{/each}}
+     </div>
+    </div>
+    </div>
+  </div>
+</div>
+
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="/socket.io/socket.io.js"></script>
+<script src="/js/chat.js"></script>

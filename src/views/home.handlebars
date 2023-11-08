@@ -1,0 +1,27 @@
+ <div>
+
+     <h1>Productos</h1>
+
+    {{#each products}}
+    <ul>
+        <li>TITULO: {{this.titulo}}</li>
+        <li>DESCRIPCION: ${{this.descripcion}}</li>
+        <li>code: ${{this.code}}</li>
+        <li>PRECIO: ${{this.precio}}</li>
+        <li>thumbnail: ${{this.thumbnail}}</li>
+        <li>stock: ${{this.stock}}</li>
+        <li>Categoria: {{this.category}}</li>
+        <li>ID: {{this._id}}</li>
+         <button type="button" class="btn" onclick="addProduct('{{this._id}}')">Agregar al Carrito</button>
+    </ul>
+    {{/each}}
+    {{#if hasNextPage}}
+    <a href="/?page={{nextPage}}">Siguiente</a>
+  {{/if}}
+  {{#if hasPrevPage}}
+    <a href="/?page={{prevPage}}">Atras</a>
+  {{/if}}
+</div>
+
+<script src="/js/agregarCarrito.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>

@@ -1,0 +1,36 @@
+
+<div>
+  <div>
+
+    <h1 id="ola">Productos Totales</h1>
+    <div id="container">
+      <div class="row">
+    {{#each products}}
+    <div class="col-lg-4">
+    <ul>
+        <li>TITULO: {{this.titulo}}</li>
+        <li>DESCRIPCION: ${{this.descripcion}}</li>
+        <li>code: ${{this.code}}</li>
+        <li>PRECIO: ${{this.precio}}</li>
+        <li><img src="{{this.thumbnail}}`"> </li>
+        <li>stock: ${{this.stock}}</li>
+        <li>Categoria: {{this.category}}</li>
+        <li>ID: {{this._id}}</li>
+        <button type="button" class="btn" onclick="addProduct('{{this._id}}')">Agregar al Carrito</button>
+    </ul>
+</div>
+    {{/each}}
+</div>
+    {{#if hasPrevPage}}
+    <a href="/products?page={{prevPage}}"><button>Anterior</button></a>
+    {{/if}}
+     {{#if hasNextPage}}
+    <a href="/products?page={{nextPage}}"><button>Siguiente</button></a>
+    {{/if}}
+    </div>
+    </div>
+  </div>
+<script src="/socket.io/socket.io.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+<script src="/js/agregarCarrito.js"></script>
+<script src="/js/products.js"></script>
