@@ -1,0 +1,27 @@
+
+
+<div style="display:flex; gap: 5rem;">
+  <div>
+
+    <h1 id="ola">carrito</h1>
+    <div id="container">
+      <div>
+    {{#each carts}}
+   <ul>
+          <li>Carrito ID: {{this._id}}</li>
+          <li>Productos:
+            <ul>
+              {{#each this.products}}
+              <li>Producto ID: {{this._id}}</li>
+              <li>Cantidad: {{this.quantity}}</li>
+              {{/each}}
+            </ul>
+          </li>
+        </ul>
+    {{/each}}
+    </div>
+    </div>
+  </div>
+</div>
+<script src="/socket.io/socket.io.js"></script>
+<script src="/js/cart.js"></script>

@@ -1,0 +1,72 @@
+<h1>Formulario para Agregar Producto</h1>
+<form id="agregarForm">
+     <label for="titulo">Título:</label>
+    <input id="titulo" name="titulo" required>
+
+    <label for="descripcion">Descripción:</label>
+    <input id="descripcion" name="descripcion" required>
+
+    <label for="precio">Precio:</label>
+    <input id="precio" name="precio" required>
+
+    <label for="status">Estado:</label>
+    <input id="status" name="status" required>
+
+    <label for="thumbnail">Thumbnail:</label>
+    <input id="thumbnail" name="thumbnail" required>
+
+    <label for="code">Código:</label>
+    <input id="code" name="code" required>
+
+    <label for="stock">Stock:</label>
+    <input id="stock" name="stock" required>
+
+    <label for="category">Categoría:</label>
+    <input id="category" name="category" required>
+
+    <button type="submit">Agregar Producto</button>
+</form>
+
+<h1>Formulario para Eliminar Producto por ID</h1>
+<form id="eliminarForm">
+    <label for="productId">ID del Producto a Eliminar:</label>
+    <input type="text" id="productId" name="productId" required>
+
+    <button type="submit">Eliminar Producto</button>
+</form>
+
+<div style="display:flex; gap: 5rem;">
+  <div>
+
+    <h1 id="ola">Productos agregados</h1>
+    <div id="container">
+      <div>
+    {{#each products}}
+    <ul>
+        <li>TITULO: {{this.titulo}}</li>
+        <li>DESCRIPCION: ${{this.descripcion}}</li>
+        <li>code: ${{this.code}}</li>
+        <li>PRECIO: ${{this.precio}}</li>
+        <li><img src="{{this.thumbnail}}`"> </li>
+        <li>stock: ${{this.stock}}</li>
+        <li>Categoria: {{this.category}}</li>
+        <li>ID: {{this._id}}</li>
+         <button type="button" class="btn" onclick="addProduct('{{this._id}}')">Agregar al Carrito</button>
+    </ul>
+
+    {{/each}}
+
+    {{#if hasPrevPage}}
+    <a href="/={{prevPage}}"><button>Anterior</button></a>
+    {{/if}}
+     {{#if hasNextPage}}
+    <a href="/={{nextPage}}"><button>Siguiente</button></a>
+    {{/if}}
+    </div>
+    </div>
+  </div>
+</div>
+<script src="/socket.io/socket.io.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+<script src="/js/agregarCarrito.js"></script>
+<script src="/js/index.js"></script>
