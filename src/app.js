@@ -5,9 +5,10 @@ import mongoose from 'mongoose';
 import {
         Server
 } from 'socket.io';
-import cookieParser, { signedCookie } from 'cookie-parser';
+// import cookieParser, { signedCookie } from 'cookie-parser';
 import session from 'express-session';
 import fileStore from 'session-file-store';
+import MongoStore from 'connect-mongo';
 
 //dependencias de ruta
 
@@ -53,10 +54,13 @@ app.use(express.urlencoded({
 //session
 
 app.use(session({
-        store: new fileStr({
-                path: `${__dirname}/sessions`,
-                ttl: 360,
-                retries: 0    
+        store: MongoStore.create({
+               mongoUrl:'mongodb+srv://Glagrotteria:oaRHHBM4KzeYZAZI@eccomerce.62qj1ur.mongodb.net/eccomerce?retryWrites=true&w=majority',
+               mongoOptions: {
+                       useNewUrlParser: true,
+                       useUnifiedTopology: true
+               },
+               ttl: 10    
         }),
         secret: 'c0d3rS3cr3tC0d',
         resave: true,
