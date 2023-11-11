@@ -7,7 +7,7 @@ export default class Products {
         console.log("db trabajando")
     }
 
-    getAll = async () => {
+    getAll = async (req) => {
 
         const limit = parseInt(req.query.limit) || 10; 
         const page = parseInt(req.query.page) || 1;    

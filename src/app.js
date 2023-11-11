@@ -19,7 +19,9 @@ from './utils.js';
 import productRouter from './routes/api/products.router.js';
 import cartRouter from './routes/api/cart.router.js';
 import chatRouter from './routes/api/message.router.js';
+import sessionRouter from './routes/api/sessions.router.js';
 import viewsRouter from './routes/web/views.router.js';
+
 
 //Managers para el socket
 
@@ -41,108 +43,6 @@ const fileStr = fileStore(session);
 // Crea server express
 const app = express();
 
-//Servidor archivos estaticos
-
-app.use(express.static(`${__dirname}/public`));
-
-//middleware
-app.use(express.json({}));
-app.use(express.urlencoded({
-        extended: true
-}));
-
-//session
-
-app.use(session({
-        store: MongoStore.create({
-               mongoUrl:'mongodb+srv://Glagrotteria:oaRHHBM4KzeYZAZI@eccomerce.62qj1ur.mongodb.net/eccomerce?retryWrites=true&w=majority',
-               mongoOptions: {
-                       useNewUrlParser: true,
-                       useUnifiedTopology: true
-               },
-               ttl: 10    
-        }),
-        secret: 'c0d3rS3cr3tC0d',
-        resave: true,
-        saveUninitialized: false,
-      ///  cookie: {  maxAge: 30000  }
-}));
-
-function auth(req, res, next) {
-        if(req.session?.user === 'pepe' && req.session?.admin) {
-            return next();
-        }
-    
-        return res.status(401).send('Error de validación de permisos');
-    }
-
-//cookie parser
-/*
-app.use(cookieParser("c0d3rS3cr3tC0d"));
-
-app.get('/cookies', (req,res) => {
-        res.cookie('coderCookie', 'Esta es una coder Cookie', {maxAge: 10000})
-        .send('cookie configurada correctamente');
-});
-
-app.get('/all-cookies', (req,res) => {
-        res.send(req.cookies);
-});
-*/
-app.get('/session', (req, res) => {
-        if(req.session.counter) {
-            req.session.counter++;
-            res.send(`Se ha vistido el sitio ${req.session.counter} veces`)
-        } else {
-            req.session.counter = 1;
-            res.send('Bienvenido');
-        }
-    });
-
-app.get('/login', (req, res) => {
-        const { username, password } = req.query;
-    
-        if(username !== 'pepe' || password !== 'pepepass') {
-            return res.status(401).send('Login fallido');
-        }
-    
-        req.session.user = username;
-        req.session.admin = true;
-        res.send('Login exitoso');
-    });
-
-app.get('/private', auth, (req, res) => {
-        res.send('Tienes permisos para acceder a este servicio');
-    });
-
-    app.get('/logout', (req, res) => {
-        req.session.destroy(error => {
-            if(!error) res.send('Logout exitoso')
-            else res.send({ status: 'error', message: error.message });
-        })
-    });
-
-/*app.get('/signed-cookie', (req,res) => {
-        res.cookie('coderSignedCookie', 'Cookie firmada', {maxAge: 30000, signed: true})
-        .send('cookie configurada correctamente');
-});
-
-app.get('/delete-cookies', (req,res) => {
-        res.clearCookie('coderCookie').send('cookie Eliminada')
-})
-
-app.get('/all-signed-Cookies', (req,res) => {
-        res.send(req.signedCookies);
-});
-*/
-
-// handlebars
-
-app.engine('handlebars', handlebars.engine());
-app.set('views', `${__dirname}/views`)
-app.set('view engine', 'handlebars');
-
-
 // Conexion DB
 try {
         // string de Conexion
@@ -153,9 +53,36 @@ try {
 }
 
 
+//Servidor archivos estaticos
+
+app.use(express.static(`${__dirname}/public`));
+
+//middleware
+app.use(express.json({}));
+app.use(express.urlencoded({
+        extended: true
+}));
+
+// handlebars
+
+app.engine('handlebars', handlebars.engine());
+app.set('views', `${__dirname}/views`)
+app.set('view engine', 'handlebars');
+
+
+
+app.use(session({
+        store: MongoStore.create({
+               client:mongoose.connection.getClient(),
+               ttl: 3600    
+        }),
+        secret: 'c0d3rS3cr3tC0d',
+        resave: true,
+        saveUninitialized: true
+}));
+
 // Ruta view
 app.use('/', viewsRouter);
-
 
 // Llama a la ruta de product Router (Todo lo hecho hasta ahora)
 app.use('/api/products', productRouter);
@@ -165,6 +92,10 @@ app.use('/api/carts', cartRouter);
 
 // Ruta chat
 app.use('/api/chat', chatRouter);
+
+// Ruta chat
+app.use('/api/sessions', sessionRouter);
+
 
 const server = app.listen(8080, () => console.log('listening en 8080'));
 

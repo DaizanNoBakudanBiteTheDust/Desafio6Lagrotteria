@@ -19,10 +19,47 @@ const prodManager = new Products();
 const cartManager = new Carts();
 const chatManager = new Messages();
 
-router.get('/', async (req, res) => { 
+const publicAccess = (req, res, next) => {
+    if(req.session?.user) return res.redirect('/');
+    next();
+}
+
+const privateAccess = (req, res, next) => {
+    if(!req.session?.user) return res.redirect('/login');
+    next();
+}
+
+router.get('/productsLog', async (req, res) => { 
     
     res.render('home', { products: await prodManager.getAll() });
     
+});
+
+router.get('/register', publicAccess, (req, res) => {
+    res.render('register')
+});
+
+router.get('/login', publicAccess, (req, res) => {
+    res.render('login')
+});
+
+router.get('/', privateAccess, async (req, res) => {
+     try {
+        const user = req.session.user;
+
+        // Obtener todos los productos
+        const allProducts = await prodManager.getAll(req);
+
+        res.render('home', {
+            message: `Bienvenido ${user.username}`,
+            user: user,
+            products: allProducts
+        });
+    } catch (error) {
+        // Manejar errores aquí
+        console.error(error);
+        res.status(500).send('Error interno del servidor');
+    }
 });
 
 router.get('/realTimeProducts', async (req, res) => { 
