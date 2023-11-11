@@ -7,6 +7,7 @@ import {
 } from 'socket.io';
 import cookieParser, { signedCookie } from 'cookie-parser';
 import session from 'express-session';
+import fileStore from 'session-file-store';
 
 //dependencias de ruta
 
@@ -26,8 +27,6 @@ import Carts from './dao/dbManagers/cart.manager.js';
 import Messages from './dao/dbManagers/message.manager.js';
 
 
-// import ProductManager from './dao/fileManagers/productManager.js';
-
 
 // const manager = new ProductManager(productsFilePath);
   const prodManager = new Products();
@@ -35,6 +34,8 @@ import Messages from './dao/dbManagers/message.manager.js';
   const chatManager = new Messages();
 
 
+
+const fileStr = fileStore(session);
 
 // Crea server express
 const app = express();
@@ -52,12 +53,29 @@ app.use(express.urlencoded({
 //session
 
 app.use(session({
-        secret: ''
-}))
+        store: new fileStr({
+                path: `${__dirname}/sessions`,
+                ttl: 360,
+                retries: 0    
+        }),
+        secret: 'c0d3rS3cr3tC0d',
+        resave: true,
+        saveUninitialized: false,
+      ///  cookie: {  maxAge: 30000  }
+}));
+
+function auth(req, res, next) {
+        if(req.session?.user === 'pepe' && req.session?.admin) {
+            return next();
+        }
+    
+        return res.status(401).send('Error de validación de permisos');
+    }
 
 //cookie parser
-
+/*
 app.use(cookieParser("c0d3rS3cr3tC0d"));
+
 app.get('/cookies', (req,res) => {
         res.cookie('coderCookie', 'Esta es una coder Cookie', {maxAge: 10000})
         .send('cookie configurada correctamente');
@@ -66,8 +84,41 @@ app.get('/cookies', (req,res) => {
 app.get('/all-cookies', (req,res) => {
         res.send(req.cookies);
 });
+*/
+app.get('/session', (req, res) => {
+        if(req.session.counter) {
+            req.session.counter++;
+            res.send(`Se ha vistido el sitio ${req.session.counter} veces`)
+        } else {
+            req.session.counter = 1;
+            res.send('Bienvenido');
+        }
+    });
 
-app.get('/signed-cookie', (req,res) => {
+app.get('/login', (req, res) => {
+        const { username, password } = req.query;
+    
+        if(username !== 'pepe' || password !== 'pepepass') {
+            return res.status(401).send('Login fallido');
+        }
+    
+        req.session.user = username;
+        req.session.admin = true;
+        res.send('Login exitoso');
+    });
+
+app.get('/private', auth, (req, res) => {
+        res.send('Tienes permisos para acceder a este servicio');
+    });
+
+    app.get('/logout', (req, res) => {
+        req.session.destroy(error => {
+            if(!error) res.send('Logout exitoso')
+            else res.send({ status: 'error', message: error.message });
+        })
+    });
+
+/*app.get('/signed-cookie', (req,res) => {
         res.cookie('coderSignedCookie', 'Cookie firmada', {maxAge: 30000, signed: true})
         .send('cookie configurada correctamente');
 });
@@ -79,6 +130,7 @@ app.get('/delete-cookies', (req,res) => {
 app.get('/all-signed-Cookies', (req,res) => {
         res.send(req.signedCookies);
 });
+*/
 
 // handlebars
 
