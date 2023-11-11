@@ -6,7 +6,8 @@ import {
 //import ProductManager from '../../dao/fileManagers/productManager.js';
 import Products from '../../dao/dbManagers/products.manager.js';
 import Carts from '../../dao/dbManagers/cart.manager.js';
-import Messages from '../../dao/dbManagers/message.manager.js'
+import Messages from '../../dao/dbManagers/message.manager.js';
+import usersModel from '../../dao/dbManagers/models/users.models.js';
 
 import {
     productsModel
